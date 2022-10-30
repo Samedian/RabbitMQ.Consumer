@@ -16,18 +16,9 @@ namespace RabbitMQ.Consumer
             //amqp://username:password:host:port
             using var connection = factory.CreateConnection(); //return iconnection object
             using var channel = connection.CreateModel(); // return imodel nothing but channel
-            channel.QueueDeclare("demo-queue", durable: true, exclusive: false, autoDelete: false, arguments: null);
-            // durable true - msg hang around until user reads it
+            //QueueConsumer.Consumer(channel);
+            DirectExchangeConsumer.Consume(channel);
 
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (sender, e) =>
-            {
-                var body = e.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-
-                Console.WriteLine(message);
-            };
-            channel.BasicConsume("demo-queue", true, consumer);
             Console.ReadLine();
         }
     }
