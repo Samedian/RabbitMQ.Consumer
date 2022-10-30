@@ -17,7 +17,10 @@ namespace RabbitMQ.Consumer
             using var connection = factory.CreateConnection(); //return iconnection object
             using var channel = connection.CreateModel(); // return imodel nothing but channel
             //QueueConsumer.Consumer(channel);
-            DirectExchangeConsumer.Consume(channel);
+            //DirectExchangeConsumer.Consume(channel);
+            //TopicExchangeConsumer.Consume(channel);
+            //HeaderExchangeConsumer.Consume(channel);
+            FanoutExchangeConsumer.Consume(channel);
 
             Console.ReadLine();
         }
